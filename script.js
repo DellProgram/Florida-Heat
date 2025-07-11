@@ -47,16 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- PRODUCTS PAGE ONLY SCRIPTS ---
-    // We check if we are on the products page by looking for the #products section
     if (document.getElementById('products')) {
         
         // --- STRIPE & CART SETUP ---
-        // IMPORTANT: Replace with your REAL Stripe Publishable Key
         const stripe = Stripe('pk_test_51...YOUR_PUBLISHABLE_KEY'); 
         let cart = [];
         let elements;
 
-        // --- DOM ELEMENT SELECTORS (Products Page Specific) ---
+        // --- DOM ELEMENT SELECTORS ---
         const cartButton = document.getElementById('cart-button');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart-btn');
@@ -72,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalTitle = document.getElementById('modal-title');
         const cartViews = document.querySelector('.cart-views');
 
-        // --- EVENT LISTENERS (Products Page Specific) ---
+        // --- EVENT LISTENERS ---
         cartButton.addEventListener('click', () => cartModal.classList.add('open'));
         closeCartBtn.addEventListener('click', () => {
             cartModal.classList.remove('open');
@@ -160,7 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- STRIPE PAYMENT LOGIC ---
         async function initializeStripeElements() {
-            const { clientSecret } = await fetch('/.netlify/functions/create-payment-intent', {
+            // UPDATED: The path now points to your 'payment.js' function.
+            const { clientSecret } = await fetch('/.netlify/functions/payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ items: cart }),
@@ -224,5 +223,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 spinner.classList.add('hidden');
             }
         }
-    } // End of products-page-only scripts
+    }
 });
