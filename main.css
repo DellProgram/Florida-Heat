@@ -13,6 +13,11 @@
     --font-body: 'Montserrat', sans-serif;
 }
 
+/* FIXED: Prevents horizontal overflow causing empty space */
+html {
+    overflow-x: hidden;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +29,14 @@ body {
     color: var(--text-light);
     background-color: var(--dark-bg);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Double safety for overflow */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
 }
 
 /* --- THEMED BACKGROUND & PARTICLE EFFECTS --- */
@@ -51,8 +63,8 @@ body {
 }
 
 @keyframes fadeInAndPan {
-    0% { opacity: 0.1; transform: scale(1) translateX(-2%); }
-    100% { opacity: 0.2; transform: scale(1.05) translateX(2%); }
+    0% { opacity: 0.3; }
+    100% { opacity: 0.4; }
 }
 
 #fire-ember-container {
@@ -69,10 +81,9 @@ body {
     position: absolute;
     bottom: -20px;
     border-radius: 50%;
-    /* FIXED: 'infinite' is removed. JS now handles the continuous loop. */
     animation-name: rise;
     animation-timing-function: linear;
-    animation-fill-mode: forwards; /* Ensures ember stays hidden at the end of its animation */
+    animation-fill-mode: forwards;
 }
 
 /* Page-specific ember colors */
@@ -106,7 +117,19 @@ h1, h2, h3 {
     text-transform: uppercase;
     font-weight: 700;
 }
-h1 { font-family: var(--font-display); font-size: clamp(4rem, 15vw, 8rem); line-height: 0.9; letter-spacing: 1px; }
+
+/* FIXED: Applied professional font and gradient to all H1s */
+h1 { 
+    font-family: 'Cinzel', serif; 
+    font-size: clamp(4rem, 15vw, 8rem); 
+    line-height: 0.9; 
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, var(--fire-red), var(--habanero-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 h2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 4rem); text-align: center; margin-bottom: 3rem; letter-spacing: 2px; }
 h3 { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.5rem); color: #fff; letter-spacing: 1.5px; margin-bottom: 1rem; }
 p { margin-bottom: 1.5rem; font-size: 1.1rem; }
@@ -115,10 +138,19 @@ section {
     padding: 120px 0; 
     background: transparent;
 }
+
+.subheadline {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--gold-accent);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
 .page-title {
     text-align: center;
     margin-bottom: 4rem;
-    color: var(--gold-accent);
 }
 
 
@@ -228,78 +260,10 @@ section {
     transition: all 0.3s ease-in-out;
 }
 
-/* --- HERO SECTION (HOMEPAGE) --- */
-.hero-section {
-    min-height: 100vh;
-    padding-top: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-.hero-content {
-    animation: fadeIn 1.5s ease-out;
-    position: relative;
-    z-index: 2;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.hero-section h1 {
-    color: var(--fire-red);
-    text-shadow: 0 0 20px rgba(229, 57, 53, 0.7);
-}
-.hero-section .subheadline {
-    font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    letter-spacing: 1.5px;
-    color: var(--gold-accent);
-    margin-bottom: 2rem;
-}
-
-.hero-graphics-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero-bottle {
-    position: absolute;
-    bottom: -10%;
-    max-width: 300px;
-    width: 30vw;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
-    animation: float 6s ease-in-out infinite;
-}
-
-.left-bottle {
-    left: 5%;
-    animation-direction: alternate;
-}
-
-.right-bottle {
-    right: 5%;
-    animation-direction: alternate-reverse;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-25px); }
-    100% { transform: translateY(0px); }
-}
-
-
-/* --- CONTACT PAGE STYLES --- */
+/* --- CONTACT PAGE --- */
 .contact-body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr; /* Make form wider */
     gap: 3rem;
     background: var(--card-bg);
     padding: 3rem;
@@ -307,24 +271,21 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.contact-form-wrapper h3, .contact-info-wrapper h3 {
-    margin-bottom: 2rem;
-    color: var(--gold-accent);
-}
-
-.form-group {
+.contact-form .form-group {
     margin-bottom: 1.5rem;
 }
 
-.form-group label {
+.contact-form label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: #ccc;
+    font-size: 1rem;
+    font-family: var(--font-heading);
 }
 
-.form-group input,
-.form-group textarea {
+.contact-form input,
+.contact-form textarea {
     width: 100%;
     padding: 12px;
     background: rgba(0,0,0,0.3);
@@ -332,22 +293,43 @@ section {
     border-radius: 6px;
     color: var(--text-light);
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 1.1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
     border-color: var(--gold-accent);
     box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
 }
 
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form .btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.contact-info-wrapper {
+    padding-left: 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-info-wrapper h3 {
+    color: var(--gold-accent);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
 .contact-info-wrapper .info-item {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .contact-info-wrapper .info-item svg {
@@ -355,21 +337,23 @@ section {
     height: 28px;
     flex-shrink: 0;
     color: var(--gold-accent);
+    margin-top: 5px;
+}
+
+.contact-info-wrapper .info-item h4 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin: 0 0 0.25rem 0;
+    color: #fff;
 }
 
 .contact-info-wrapper .info-item a {
+    color: #ccc;
     transition: color 0.3s;
 }
 
 .contact-info-wrapper .info-item a:hover {
     color: var(--fire-red);
-}
-
-.contact-info-wrapper h4 {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    margin-bottom: 0.2rem;
-    color: #fff;
 }
 
 /* --- FOOTER --- */
@@ -379,9 +363,8 @@ section {
     padding: 50px 20px;
     position: relative;
     z-index: 5;
-    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.8) 70%, transparent 100%);
-    backdrop-filter: blur(4px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto; 
+    border-top: 2px solid var(--gold-accent); 
 }
 .footer-logo { 
     height: 60px; 
@@ -410,7 +393,7 @@ section {
     max-width: 350px;
     margin: 1.5rem auto;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--gold-accent);
 }
 
 .footer-contact .info-item {
@@ -418,8 +401,8 @@ section {
     align-items: center;
     gap: 1rem;
     width: 100%;
-    justify-content: flex-start;
-    text-align: left;
+    justify-content: center;
+    text-align: center;
 }
 
 .footer-contact .info-item svg {
@@ -456,11 +439,14 @@ section {
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 992px) {
-    .hero-bottle {
-        max-width: 150px;
-    }
     .contact-body {
         grid-template-columns: 1fr;
+    }
+    .contact-info-wrapper {
+        padding-left: 0;
+        border-left: none;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
 }
 
@@ -488,7 +474,6 @@ section {
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-    .hero-bottle { display: none; }
 
     .contact-body {
         padding: 2rem;
