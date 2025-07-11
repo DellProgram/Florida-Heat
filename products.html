@@ -13,6 +13,9 @@
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
+        .page-products .animated-bg::after {
+            background-image: url('images/red_peppers.jpg');
+        }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
         .product-card { background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
@@ -60,7 +63,6 @@
         .checkout-btn { width: 100%; }
         .checkout-btn:disabled { background: #555; border-color: #555; cursor: not-allowed; box-shadow: none; }
 
-        /* Checkout Form Styles */
         #checkout-form { overflow-y: auto; padding-right: 1rem; }
         .form-row { display: flex; gap: 1rem; }
         .form-row .form-group { flex: 1; }
