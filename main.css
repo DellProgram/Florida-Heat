@@ -50,15 +50,6 @@ body {
     z-index: -2;
 }
 
-/* Page-specific backgrounds - FIXED PATHS */
-/* This is the only section that has been changed. */
-/* The '../' tells the browser to go up one folder from the css file, then into the images folder. */
-.page-home .animated-bg::after { background-image: url('images/spicy_peppers.png'); }
-.page-about .animated-bg::after { background-image: url('images/green_peppers.png'); }
-.page-products .animated-bg::after { background-image: url('images/red_peppers.jpg'); }
-.page-contact .animated-bg::after { background-image: url('images/peppers.jpg'); }
-
-
 @keyframes fadeInAndPan {
     0% { opacity: 0.1; transform: scale(1) translateX(-2%); }
     100% { opacity: 0.2; transform: scale(1.05) translateX(2%); }
@@ -78,7 +69,10 @@ body {
     position: absolute;
     bottom: -20px;
     border-radius: 50%;
-    animation: rise 10s linear infinite;
+    /* FIXED: 'infinite' is removed. JS now handles the continuous loop. */
+    animation-name: rise;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards; /* Ensures ember stays hidden at the end of its animation */
 }
 
 /* Page-specific ember colors */
@@ -90,7 +84,7 @@ body {
 }
 .page-about .ember {
     background: var(--jalapeno-green);
-    box-shadow: 0 0 10px 2px var(--jalapeno-green), 0 0 20px 5px #8BC34A;
+    box-shadow: 0 0 12px 3px var(--jalapeno-green), 0 0 22px 6px #8BC34A;
 }
 
 
@@ -302,7 +296,7 @@ section {
 }
 
 
-/* --- NEW: CONTACT PAGE STYLES --- */
+/* --- CONTACT PAGE STYLES --- */
 .contact-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -385,7 +379,8 @@ section {
     padding: 50px 20px;
     position: relative;
     z-index: 5;
-    background: transparent;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.8) 70%, transparent 100%);
+    backdrop-filter: blur(4px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .footer-logo { 
@@ -418,20 +413,19 @@ section {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* FIXED: Footer icon alignment and sizing */
 .footer-contact .info-item {
     display: flex;
     align-items: center;
     gap: 1rem;
     width: 100%;
-    justify-content: flex-start; /* Aligns content to the left */
+    justify-content: flex-start;
     text-align: left;
 }
 
 .footer-contact .info-item svg {
     width: 24px;
     height: 24px;
-    flex-shrink: 0; /* Prevents icon from shrinking */
+    flex-shrink: 0;
     color: var(--gold-accent);
 }
 
@@ -465,7 +459,6 @@ section {
     .hero-bottle {
         max-width: 150px;
     }
-    /* NEW: Stack contact sections on tablets */
     .contact-body {
         grid-template-columns: 1fr;
     }
@@ -495,7 +488,7 @@ section {
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-    .hero-bottle { display: none; } /* Hide bottles on small screens */
+    .hero-bottle { display: none; }
 
     .contact-body {
         padding: 2rem;
