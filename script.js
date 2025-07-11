@@ -20,41 +20,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. FIRE EMBER ANIMATION
+    // 3. CONTINUOUS FIRE EMBER ANIMATION
     const emberContainer = document.getElementById('fire-ember-container');
+
+    function createEmber() {
+        // This function creates a single ember. When its animation ends,
+        // it removes itself and creates a new one to take its place, ensuring a constant stream.
+        if (!emberContainer) return;
+
+        const ember = document.createElement('div');
+        ember.classList.add('ember');
+
+        const startX = Math.random() * 100;
+        const xEnd = (Math.random() * 200) - 100;
+        const riseDuration = (Math.random() * 10) + 8; // Duration between 8 and 18 seconds
+        const size = (Math.random() * 6) + 2;
+
+        ember.style.left = `${startX}vw`;
+        ember.style.width = `${size}px`;
+        ember.style.height = `${size}px`;
+        ember.style.setProperty('--x-end', `${xEnd}px`);
+        ember.style.animationDuration = `${riseDuration}s`;
+        ember.style.opacity = Math.random() * 0.6 + 0.2;
+
+        emberContainer.appendChild(ember);
+
+        // When the animation finishes, remove the ember and create a new one to keep the effect going.
+        ember.addEventListener('animationend', () => {
+            ember.remove();
+            createEmber();
+        });
+    }
+
     if (emberContainer) {
-        const numberOfEmbers = 40;
-        for (let i = 0; i < numberOfEmbers; i++) {
-            const ember = document.createElement('div');
-            ember.classList.add('ember');
-
-            const startX = Math.random() * 100;
-            const xEnd = (Math.random() * 200) - 100;
-            const riseDuration = (Math.random() * 10) + 7;
-            const riseDelay = Math.random() * 12;
-            const size = (Math.random() * 6) + 2;
-
-            ember.style.left = `${startX}vw`;
-            ember.style.width = `${size}px`;
-            ember.style.height = `${size}px`;
-            ember.style.setProperty('--x-end', `${xEnd}px`);
-            ember.style.animationDuration = `${riseDuration}s`;
-            ember.style.animationDelay = `${riseDelay}s`;
-            ember.style.opacity = Math.random() * 0.6 + 0.2;
-
-            emberContainer.appendChild(ember);
+        // Create the initial batch of embers with a staggered start to look natural.
+        const initialEmberCount = 40;
+        for (let i = 0; i < initialEmberCount; i++) {
+            setTimeout(createEmber, Math.random() * 5000);
         }
     }
 
+
     // --- PRODUCTS PAGE ONLY SCRIPTS ---
+    // This entire block will only run if an element with the ID 'products' is found.
     if (document.getElementById('products')) {
         
         // --- STRIPE & CART SETUP ---
+        // IMPORTANT: Replace with your REAL Stripe Publishable Key
         const stripe = Stripe('pk_test_51...YOUR_PUBLISHABLE_KEY'); 
         let cart = [];
         let elements;
 
-        // --- DOM ELEMENT SELECTORS ---
+        // --- DOM ELEMENT SELECTORS (Products Page Specific) ---
         const cartButton = document.getElementById('cart-button');
         const cartModal = document.getElementById('cart-modal');
         const closeCartBtn = document.getElementById('close-cart-btn');
@@ -70,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalTitle = document.getElementById('modal-title');
         const cartViews = document.querySelector('.cart-views');
 
-        // --- EVENT LISTENERS ---
+        // --- EVENT LISTENERS (Products Page Specific) ---
         cartButton.addEventListener('click', () => cartModal.classList.add('open'));
         closeCartBtn.addEventListener('click', () => {
             cartModal.classList.remove('open');
-            setTimeout(showCartView, 400); 
+            setTimeout(showCartView, 400); // Reset to cart view after closing
         });
         
         addToCartButtons.forEach(button => {
@@ -158,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- STRIPE PAYMENT LOGIC ---
         async function initializeStripeElements() {
-            // UPDATED: The path now points to your 'payment.js' function.
+            // Path points to your 'payment.js' function in the 'netlify/functions' directory.
             const { clientSecret } = await fetch('/.netlify/functions/payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -223,5 +240,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 spinner.classList.add('hidden');
             }
         }
-    }
+    } // End of products-page-only scripts
 });
