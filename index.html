@@ -1,31 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Above All Dreams - Florida Hot Sauce</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Montserrat:wght@400;600;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
 
-    <!-- Background Animations: Peppers BG, Floating Peppers, and Fire Embers -->
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="main.css">
+
+    <!-- Page-Specific Background Style -->
+    <style>
+        .page-home .animated-bg::after {
+            background-image: url('images/spicy_peppers.png');
+        }
+    </style>
+</head>
+<body class="page-home">
+
+    <!-- Background and Particle Effects -->
     <div class="animated-bg"></div>
-    <div id="pepper-animation-container"></div>
     <div id="fire-ember-container"></div>
 
+    <!-- Header -->
     <header class="main-header">
         <nav class="navbar container">
             <a href="index.html" class="nav-logo">
                 <img src="images/3D-Above-All-Dreams-OVAL-LOGO.png" alt="Above All Dreams Logo" class="logo-img">
             </a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link current">Home</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
+             <div class="cart-icon-wrapper">
+                <a href="products.html" id="cart-button" class="cart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 7A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 6h8.17l1.313-6H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </div>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -35,63 +55,55 @@
     </header>
 
     <main>
-        <div class="homepage-container">
-
-            <!-- Hero Section with All 3 Bottles -->
-            <section class="hero-section-v8">
-                <div class="hero-content container">
-                    <div class="hero-text">
-                        <h1 class="animate-slide-in">UNLEASH THE<br>FLORIDA FIRE</h1>
-                        <p class="animate-slide-in delay-1">HAND-CRAFTED. BOLD FLAVOR. PURE HEAT.</p>
-                        <a href="products.html" class="btn btn-primary animate-slide-in delay-2">EXPLORE THE LINEUP</a>
-                    </div>
-                    <div class="hero-image-container">
-                        <!-- Corrected to .jpg as per original file -->
-                        <img src="images/All-3.png" alt="All three hot sauces from Above All Dreams" class="hero-trio-img">
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Cinematic Showcase 1: Florida Fire -->
-            <section class="cinematic-showcase fire-showcase">
-                 <div class="cinematic-content-grid container">
-                    <div class="cinematic-details animate-on-scroll">
-                        <h2 class="cinematic-title">Florida Fire</h2>
-                        <p>The hottest of the 3! Made with a blistering blend of Habanero and Datil peppers, this sauce is complimented by our signature Wine Berry Blend for a fiery heat with a jaw-popping citrus twist.</p>
-                        <a href="products.html#fire" class="btn btn-secondary">GET THE DETAILS</a>
-                    </div>
-                    <div class="cinematic-image-wrapper animate-on-scroll delay-1">
-                        <div class="product-glow fire-glow"></div>
-                        <img src="images/FL-Fire.png" alt="Florida Fire Hot Sauce">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Cinematic Showcase 2: Florida Heat Green -->
-            <section class="cinematic-showcase green-showcase">
-                 <div class="cinematic-content-grid container">
-                    <div class="cinematic-details animate-on-scroll">
-                        <h2 class="cinematic-title">Florida Heat Green</h2>
-                        <p>Our "one-sauce-fits-all" option. A powerful and tangy blend of Serreno and Jalapeno peppers, cured in white wine vinegar with herbs and spices. This vibrant green sauce is a must-have on your dinner table.</p>
-                        <a href="products.html#green" class="btn btn-secondary">GET THE DETAILS</a>
-                    </div>
-                    <div class="cinematic-image-wrapper animate-on-scroll delay-1">
-                         <div class="product-glow green-glow"></div>
-                        <img src="images/FL-Heat-Green.png" alt="Florida Heat Green Hot Sauce">
-                    </div>
-                </div>
-            </section>
-        </div>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-graphics-container">
+                 <img src="images/FL-Fire.png" alt="Florida Fire Hot Sauce" class="hero-bottle left-bottle animate-on-scroll">
+                 <img src="images/FL-Heat-Green.png" alt="Florida Heat Green Hot Sauce" class="hero-bottle right-bottle animate-on-scroll delay-1">
+            </div>
+            <div class="container hero-content">
+                <p class="subheadline animate-on-scroll">Hand-Crafted in Orlando, Florida</p>
+                <h1 class="animate-on-scroll delay-1">Taste The Fire</h1>
+                <a href="products.html" class="btn btn-primary animate-on-scroll delay-2" style="margin-top: 2rem;">Explore Flavors</a>
+            </div>
+        </section>
     </main>
 
+    <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <img src="images/Above-All-Dreams-OVAL-LOGO-1-1024x761.png" alt="Watermark Logo" class="footer-watermark">
+            <img src="images/3D-Above-All-Dreams-OVAL-LOGO.png" alt="Above All Dreams Logo" class="footer-logo">
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zm3.6 5.42h-2.14c-.87 0-1.1.42-1.1 1.08v1.51h3.15l-.42 3.15h-2.73v8.03h-3.26v-8.03H8.4V9.05h2.14V7.63c0-2.12 1.3-3.28 3.18-3.28h2.64v3.07z"/></svg></a>
+                <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8A3.6 3.6 0 0 0 20 16.4V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+                <a href="#" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.67.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98-3.56-.18-6.73-1.89-8.84-4.48-.37.63-.58 1.37-.58 2.15 0 1.49.76 2.8 1.91 3.56-.71 0-1.37-.22-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.94.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.35 0-.69-.02-1.03-.06C3.44 20.29 5.7 21 8.12 21c7.35 0 11.37-6.08 11.37-11.37 0-.17 0-.34-.01-.51.78-.57 1.45-1.28 1.98-2.08z"/></svg></a>
+            </div>
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-contact">
+                 <div class="info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer">332 Wilshire Blvd, Casselberry, FL 32707</a>
+                </div>
+                <div class="info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                   <a href="mailto:Abovealldreams2@outlook.com">Abovealldreams2@outlook.com</a>
+                </div>
+                <div class="info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                   <a href="tel:+14076072000">407-607-2000</a>
+                </div>
+            </div>
             <p>&copy; 2025 Above All Dreams. All Rights Reserved.</p>
-            <p>Hand-Crafted in Orlando, Florida.</p>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
+
 </body>
 </html>
