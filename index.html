@@ -13,11 +13,145 @@
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="main.css">
 
-    <!-- Page-Specific Background Style -->
+    <!-- Page-Specific Styles for the Showcase -->
     <style>
         .page-home .animated-bg::after {
-            background-image: url('images/spicy_peppers.png');
+            background-image: url('images/peppers.jpg');
         }
+
+        /* Main hero section adjustments */
+        .hero-section {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 40px 20px;
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        /* FIXED: Hero text styling */
+        .hero-content .subheadline {
+            font-family: 'Cinzel', serif; /* Changed to a professional serif font */
+            font-size: 1.5rem;
+            color: var(--gold-accent);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content h1 {
+            font-family: 'Cinzel', serif; /* Changed to a professional serif font */
+            /* Added a fiery gradient color */
+            background: linear-gradient(45deg, var(--fire-red), var(--habanero-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+
+        /* NEW: Dedicated section for the main showcase image */
+        #main-showcase-section {
+            padding: 0 0 80px 0;
+            background: transparent;
+        }
+
+        .top-showcase {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .top-showcase img {
+            width: 100%;
+            border-radius: 12px;
+            /* FIXED: Removed the box-shadow that caused the outline */
+        }
+
+        /* Container for the scrolling showcase */
+        .scroll-showcase {
+            width: 100%;
+            background: transparent;
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+        }
+
+        /* Individual showcase section for each bottle */
+        .bottle-feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 6rem;
+            flex-wrap: wrap;
+        }
+        
+        .bottle-feature:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .bottle-feature a {
+            text-decoration: none;
+            color: inherit;
+            display: contents;
+        }
+
+        .bottle-img-container {
+            flex: 1 1 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bottle-img-container img {
+            max-height: 500px;
+            filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .bottle-text-container {
+            flex: 1 1 400px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .bottle-title {
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-family: var(--font-display);
+            line-height: 1;
+            margin: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .bottle-feature:hover .bottle-title {
+            transform: scale(1.05);
+        }
+        .bottle-feature:hover .bottle-img-container img {
+            transform: scale(1.1);
+        }
+
+        .title-fire { color: var(--fire-red); }
+        .title-heat { color: var(--habanero-orange); }
+        .title-green { color: var(--jalapeno-green); }
+
+        .shop-now-prompt {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            margin-top: 1rem;
+            display: block;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .bottle-feature:hover .shop-now-prompt {
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body class="page-home">
@@ -57,14 +191,62 @@
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
-            <div class="hero-graphics-container">
-                 <img src="images/FL-Fire.png" alt="Florida Fire Hot Sauce" class="hero-bottle left-bottle animate-on-scroll">
-                 <img src="images/FL-Heat-Green.png" alt="Florida Heat Green Hot Sauce" class="hero-bottle right-bottle animate-on-scroll delay-1">
-            </div>
             <div class="container hero-content">
                 <p class="subheadline animate-on-scroll">Hand-Crafted in Orlando, Florida</p>
-                <h1 class="animate-on-scroll delay-1">Taste The Fire</h1>
-                <a href="products.html" class="btn btn-primary animate-on-scroll delay-2" style="margin-top: 2rem;">Explore Flavors</a>
+                <h1 class="animate-on-scroll delay-1">The Flavor of Florida</h1>
+            </div>
+        </section>
+
+        <!-- Main Showcase Section -->
+        <section id="main-showcase-section">
+            <div class="top-showcase animate-on-scroll delay-2">
+                <img src="images/All-3.png" alt="All three Above All Dreams Hot Sauces">
+            </div>
+        </section>
+
+        <!-- Scrolling Showcase Section -->
+        <section class="scroll-showcase">
+            <div class="container">
+
+                <!-- Feature 1: Florida Fire -->
+                <div class="bottle-feature">
+                    <a href="products.html">
+                        <div class="bottle-img-container">
+                            <img src="images/FL-Fire.png" alt="Florida Fire Hot Sauce" class="animate-on-scroll">
+                        </div>
+                        <div class="bottle-text-container">
+                            <h2 class="bottle-title title-fire animate-on-scroll">Florida Fire</h2>
+                            <span class="shop-now-prompt">Unleash the Inferno</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Feature 2: Florida Heat -->
+                <div class="bottle-feature">
+                    <a href="products.html">
+                        <div class="bottle-img-container">
+                            <img src="images/FLHeat.png" alt="Florida Heat Hot Sauce" class="animate-on-scroll">
+                        </div>
+                        <div class="bottle-text-container">
+                            <h2 class="bottle-title title-heat animate-on-scroll">Florida Heat</h2>
+                            <span class="shop-now-prompt">Taste the Perfect Burn</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Feature 3: Florida Heat Green -->
+                <div class="bottle-feature">
+                    <a href="products.html">
+                        <div class="bottle-img-container">
+                            <img src="images/FL-Heat-Green.png" alt="Florida Heat Green Hot Sauce" class="animate-on-scroll">
+                        </div>
+                        <div class="bottle-text-container">
+                            <h2 class="bottle-title title-green animate-on-scroll">Florida Heat Green</h2>
+                            <span class="shop-now-prompt">Experience the Tangy Twist</span>
+                        </div>
+                    </a>
+                </div>
+
             </div>
         </section>
     </main>
